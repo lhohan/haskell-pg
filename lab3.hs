@@ -38,4 +38,4 @@ sumSquares' x = sum . uncurry squares' $ (x, x)
 -- ===================================
 
 coords :: Integer -> Integer -> [(Integer,Integer)]
-coords = undefined
+coords m n= [(x,y)| x <- [0..m], y <- [0..n]]
