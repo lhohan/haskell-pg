@@ -175,3 +175,12 @@ foldLeftM f a (x:xs) =
        foldLeftM f a_ xs
 
 --foldLeftM (\a b -> putChar b >> return (b : a ++ [b])) [] "haskell" >>= \r -> putStrLn r
+
+foldRightM :: Monad m => (a -> b -> m b) -> b -> [a] -> m b
+foldRightM f b [] = return b
+foldRightM f b (x : xs) =
+    do b_ <- foldRightM f b xs
+       f x b_
+
+
+--foldRightM (\a b -> putChar a >> return (a : b)) [] (show [1,3..10]) >>= \r -> putStrLn r
