@@ -1,3 +1,3 @@
 putStr' [] = return ()
-putStr' (x : xs) = putChar x >> putStr' xs
+putStr' (x : xs) = putChar x >>= putStr' xs
 
