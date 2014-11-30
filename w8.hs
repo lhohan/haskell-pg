@@ -183,3 +183,16 @@ foldRightM f b (x : xs) =
        f x b_
 
 --foldRightM (\a b -> putChar a >> return (a : b)) [] (show [1,3..10]) >>= \r -> putStrLn r
+
+liftM :: Monad m => (a -> b) -> m a -> m b
+
+--liftM f m =
+--    do x <- m
+--       return (f x)
+
+--liftM f m = m >>= \ a -> f a
+--liftM f m = m >>= \ a -> return (f a)
+--liftM f m = return (f m)
+--liftM f m = m >>= \ a -> m >>= \ b -> return (f a)
+--liftM f m = mapM f [m]
+liftM f m = m >> \a -> return (f a)
