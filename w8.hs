@@ -182,5 +182,4 @@ foldRightM f b (x : xs) =
     do b_ <- foldRightM f b xs
        f x b_
 
-
 --foldRightM (\a b -> putChar a >> return (a : b)) [] (show [1,3..10]) >>= \r -> putStrLn r
