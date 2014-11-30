@@ -105,16 +105,64 @@ sequence' :: Monad m => [m a] -> m [a]
 
 
 
-sequence' [] = return []
-sequence' (m:ms) = m >>= \a ->
-      as <- sequence' ms
-      return (a:as)
---
 --sequence' [] = return []
---sequence' (m:ms)
---    = do a <- m
---         as <- sequence' ms
---         return (a:as)
+--sequence' (m:ms) = m >>= \a ->
+--      as <- sequence' ms
+--      return (a:as)
 
+sequence' [] = return []
+sequence' (m:ms)
+    = do a <- m
+         as <- sequence' ms
+         return (a:as)
 
+mapM' :: Monad m => (a -> m b) -> [a] -> m [b]
+
+--mapM' f as = sequence' (map f as)
+
+--mapM' f [] = return []
+--mapM' f (a:as)
+--    = f a >>= \ b -> mapM' f as >>= \ bs -> return (b:bs)
+
+--mapM' f as = sequence_' (map f as)
+
+--mapM' f [] = return []
+--mapM' f (a:as)
+--    = f a >> \ b -> mapM' f as >> \ bs -> return (b:bs)
+
+--mapM' f [] = return []
+--mapM' f (a:as)
+--    do
+--        f a -> b
+--        mapM' f as -> bs
+--        return (b:bs)mapM'
+
+--mapM' f [] = return []
+--mapM' f (a:as) =
+--    do
+--        b <- f a
+--        bs <- mapM' f as
+--        return (b:bs)
+--
+mapM' f [] = return []
+mapM' f (a:as)
+    = f a >>=
+        \ b ->
+        do bs <- mapM' f as
+           return (b:bs)
+--
+--mapM' f [] = return []
+--mapM' f (a:as)
+--    = f a >>=
+--        \ b ->
+--        do bs <- mapM' f as
+--           return (bs ++ [b])
+
+filterM' :: Monad m => (a -> m Bool) -> [a] -> m [a]
+
+filterM' _ [] = return []
+filterM' p (x:xs)
+    = do flag <- p x
+         ys <- filterM' p xs
+         if flag then return (x:ys) else return ys
 
