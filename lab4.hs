@@ -51,4 +51,10 @@ euclid (x, y) | x == y      = x
 -- ===================================
 
 funkyMap :: (a -> b) -> (a -> b) -> [a] -> [b]
-funkyMap f g xs = undefined
+funkyMap f g xs = [ x | (x,i) <- funkyMap_ f g (xs `zip` [0..n])]
+                  where n = length xs - 1
+funkyMap_ :: Integral i =>  (a -> b) -> (a -> b) -> [(a,i)] -> [(b,i)]
+funkyMap_ f g []            = []
+funkyMap_ f g ((a,i):as) | even(i)   = (f(a),i) : funkyMap_ f g as
+                         | otherwise = (g(a),i) : funkyMap_ f g as
+
