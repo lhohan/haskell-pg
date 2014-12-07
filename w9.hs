@@ -127,3 +127,13 @@ leaves (Node l r) = leaves l + leaves r
 balanced (Leaf _) = True
 balanced (Node l r)
   = abs (leaves l - leaves r) <= 1 && balanced l && balanced r
+
+--balance :: [Integer] -> Tree
+
+class Monoid a where
+    mempty :: a
+    (<>) :: a -> a -> a
+
+instance Monoid [a] where
+  mempty = []
+  (<>) = (++)
