@@ -68,6 +68,9 @@ Brute force solution
 > split []                      = []
 > split [_]                     = []
 > split (x:xs)                  =  ([x], xs) : [ (x:ls, rs) | (ls, rs) <- split(xs) ]
+
+-- quickCheck(\s -> foldr (&&) True [ s == ls ++ rs  |  (ls,rs)  <-  split(s) ]  )
+
 >
 > exprs                         :: [Int] -> [Expr]
 > exprs []                      =  []
