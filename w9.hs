@@ -51,3 +51,31 @@ integerToNat 0     = Zero
 --
 --integerToNat :: Integer -> Nat
 --integerToNat = \ n -> genericLength [c | c <- show n, isDigit c]
+
+add :: Nat -> Nat -> Nat
+--
+--add Zero n      = n
+--add (Succ m) n  = Succ (add n m)
+
+--add (Succ m) n  = Succ (add n m)
+--add Zero n      = n
+
+--add Zero n      = Zero
+--add (Succ m) n  = Succ (add m n)
+----
+--add (Succ m) n  = Succ (add m n)
+--add Zero n      = Zero
+--
+--add n Zero      = Zero
+--add n (Succ m)  = Succ (add n m)
+
+--add n Zero      = n
+--add n (Succ m)  = Succ (add m n)
+--
+add n (Succ m)  = Succ (add m n)
+add n Zero      = n
+
+
+--mult :: Nat -> Nat -> Nat
+
+
