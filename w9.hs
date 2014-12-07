@@ -76,6 +76,8 @@ add n (Succ m)  = Succ (add m n)
 add n Zero      = n
 
 
---mult :: Nat -> Nat -> Nat
+mult :: Nat -> Nat -> Nat
 
+mult m Zero = Zero
+mult m (Succ n) = add m (mult m n)
 
