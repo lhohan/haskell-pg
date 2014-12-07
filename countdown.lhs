@@ -197,3 +197,9 @@ Interactive version for testing
 >   | x == y      = ys
 >  | otherwise   = y : removeOne x ys
 
+
+> isChoice :: Eq a => [a] -> [a] -> Bool
+> isChoice _ []       = False
+> isChoice [] _       = True
+> isChoice (x : xs) (ys) = elem x ys && isChoice xs (removeOne x ys)
+
