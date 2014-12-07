@@ -137,3 +137,10 @@ class Monoid a where
 instance Monoid [a] where
   mempty = []
   (<>) = (++)
+
+class MyFunctor f where
+  fmap :: (a -> b) -> f a -> f b
+
+instance MyFunctor Maybe where
+  fmap _ Nothing = Nothing
+  fmap f (Just a) = Just(f a)
