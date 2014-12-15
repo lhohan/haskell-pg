@@ -27,7 +27,7 @@ action (Concurrent c) = c (\a -> Stop)
 -- ===================================
 
 stop :: Concurrent a
-stop = error "You have to implement stop"
+stop = Concurrent(\c -> Stop)
 
 
 -- ===================================
