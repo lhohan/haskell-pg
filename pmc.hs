@@ -65,7 +65,11 @@ instance Monad Concurrent where
 -- ===================================
 
 roundRobin :: [Action] -> IO ()
-roundRobin = error "You have to implement roundRobin"
+roundRobin [] = return ()
+roundRobin (a:as) = case a of
+  (Atom x)     -> do y <- x; roundRobin (as ++ [y])
+  (Fork x1 x2) -> roundRobin(as ++ [x1,x2])
+  Stop         -> roundRobin as
 
 -- ===================================
 -- Tests
