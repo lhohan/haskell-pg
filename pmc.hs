@@ -35,7 +35,7 @@ stop = Concurrent(\c -> Stop)
 -- ===================================
 
 atom :: IO a -> Concurrent a
-atom = error "You have to implement atom"
+atom x = Concurrent(\c -> Atom(do a <- x; return (c a)))
 
 
 -- ===================================
