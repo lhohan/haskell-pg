@@ -43,10 +43,12 @@ atom x = Concurrent(\c -> Atom(do a <- x; return (c a)))
 -- ===================================
 
 fork :: Concurrent a -> Concurrent ()
-fork = error "You have to implement fork"
+fork a = Concurrent(\c -> Fork(action a)(c ()))
+
+concur (Concurrent x) = x
 
 par :: Concurrent a -> Concurrent a -> Concurrent a
-par = error "You have to implement par"
+par a b = Concurrent(\c -> (Fork(concur a c)(concur b c)))
 
 
 -- ===================================
@@ -54,7 +56,7 @@ par = error "You have to implement par"
 -- ===================================
 
 instance Monad Concurrent where
-    (Concurrent f) >>= g = error "You have to implement >>="
+    (Concurrent f) >>= g = Concurrent(\c -> f (\a -> concur (g a) c))
     return x = Concurrent (\c -> c x)
 
 
