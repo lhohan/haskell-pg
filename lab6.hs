@@ -26,7 +26,8 @@ size :: Rose a -> Int
 size (_ :> c)  = 1 + foldl(\y ys -> y + size ys) 0 c
 
 leaves :: Rose a -> Int
-leaves = error "you have to implement leaves"
+leaves (_ :> cs) | (length cs == 0) = 1
+                 | otherwise = foldl (\y ys -> y + leaves ys) 0 cs
 
 ex7 = (*) (leaves . head . children . head . children $ xs) (product . map size . children . head . drop 2 . children $ xs)
 
