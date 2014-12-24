@@ -9,10 +9,10 @@ data Rose a = a :> [Rose a] deriving Show
 -- ===================================
 
 root :: Rose a -> a 
-root = error "you have to implement root" 
+root (r :> _) = r
 
 children :: Rose a -> [Rose a]
-children = error "you have to implement children"
+children (_ :> c)= c
 
 xs = 0 :> [1 :> [2 :> [3 :> [4 :> [], 5 :> []]]], 6 :> [], 7 :> [8 :> [9 :> [10 :> []], 11 :> []], 12 :> [13 :> []]]]
 
@@ -23,7 +23,7 @@ ex2 = root . head . children . head . children . head . drop 2 $ children xs
 -- ===================================
 
 size :: Rose a -> Int
-size = error "you have to implement size"
+size (_ :> c)  = 1 + foldl(\y ys -> y + size ys) 0 c
 
 leaves :: Rose a -> Int
 leaves = error "you have to implement leaves"
