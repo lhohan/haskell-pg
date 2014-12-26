@@ -52,12 +52,12 @@ newtype Sum a = Sum a
 newtype Product a = Product a
 
 instance Num a => Monoid (Sum a) where
-  mempty = error "you have to implement mempty for Sum"
-  mappend = error "you have to implement mappend for Sum"
+  mempty = Sum 0
+  x `mappend` y = Sum (unSum x + unSum y)
   
 instance Num a => Monoid (Product a) where
-  mempty = error "you have to implement mempty for Product"
-  mappend = error "you have to implement mappend for Product"
+  mempty = Product 1
+  mappend x y = Product(unProduct x * unProduct y)
 
 unSum :: Sum a -> a
 unSum (Sum x) = x
