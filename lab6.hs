@@ -48,8 +48,8 @@ class Monoid m where
   mempty :: m
   mappend :: m -> m -> m
 
-newtype Sum a = Sum a
-newtype Product a = Product a
+newtype Sum a = Sum a deriving Show
+newtype Product a = Product a deriving Show
 
 instance Num a => Monoid (Sum a) where
   mempty = Sum 0
@@ -78,9 +78,12 @@ class Functor f => Foldable f where
   fold :: Monoid m => f m -> m
   foldMap :: Monoid m => (a -> m) -> (f a -> m)
   foldMap = error "you have to implement foldMap"
-  
+
+instance Foldable [] where
+  fold = foldr (mappend) mempty
+
 instance Foldable Rose where
-  fold = error "you have to implement fold for Rose"
+  fold r = mappend (root r) (foldr (mappend . fold) mempty (children r))
   
 sumxs = Sum 0 :> [Sum 13 :> [Sum 26 :> [Sum (-31) :> [Sum (-45) :> [], Sum 23 :> []]]], Sum 27 :> [], Sum 9 :> [Sum 15 :> [Sum 3 :> [Sum (-113) :> []], Sum 1 :> []], Sum 71 :> [Sum 55 :> []]]]
 
