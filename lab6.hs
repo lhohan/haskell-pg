@@ -60,9 +60,9 @@ instance Num a => Monoid (Product a) where
   mappend = error "you have to implement mappend for Product"
 
 unSum :: Sum a -> a
-unSum = error "you have to implement unSum"
+unSum (Sum x) = x
 unProduct :: Product a -> a
-unProduct = error "you have to implement unProduct"
+unProduct (Product x) = x
 
 num1 = mappend (mappend (Sum 2) (mappend (mappend mempty (Sum 1)) mempty)) (mappend (Sum 2) (Sum 1))
   
